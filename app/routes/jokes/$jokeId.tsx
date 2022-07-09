@@ -1,6 +1,6 @@
 import type { Joke } from '@prisma/client';
-import { Link, useLoaderData } from '@remix-run/react';
 import { json, LoaderFunction } from '@remix-run/node';
+import { Link, useCatch, useLoaderData, useParams } from '@remix-run/react';
 
 import { db } from '~/utils/db.server';
 
@@ -11,7 +11,11 @@ export const loader: LoaderFunction = async ({ params }) => {
     where: { id: params.jokeId },
   });
 
-  if (!joke) throw new Error('Joke not found');
+  if (!joke) {
+    throw new Response('What a joke! Not found.', {
+      status: 404,
+    });
+  }
 
   const data: LoaderData = { joke };
 
@@ -27,5 +31,27 @@ export default function JokeRoute() {
       <p>{data.joke.content}</p>
       <Link to='.'>{data.joke.name} Permalink</Link>
     </div>
+  );
+}
+
+export function CatchBoundary() {
+  const caught = useCatch();
+  const params = useParams();
+
+  if (caught.status === 404) {
+    return (
+      <div className='error-container'>
+        Wooooo!!!! The joke you are looking for has gone AWOL 🤷‍♂️🤷‍♂️🤷‍♂️.
+      </div>
+    );
+  }
+
+  throw new Error(`Unhandled error: ${caught.status}`);
+}
+
+export function ErrorBoundary() {
+  const { jokeId } = useParams();
+  return (
+    <div className='error-container'>{`There was an error loading joke by the id ${jokeId}. Sorry.`}</div>
   );
 }
