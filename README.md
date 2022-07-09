@@ -1,6 +1,4 @@
-# Welcome to Remix!
-
-- [Remix Docs](https://remix.run/docs)
+# [Remix Joke!](https://remix-jokes-tau.vercel.app)
 
 ## Development
 
