@@ -5,9 +5,9 @@ async function seed() {
   const kody = await db.user.create({
     data: {
       username: 'kody',
-      // this is a hashed version of "twixrox"
+      // this is a hashed version of "password"
       passwordHash:
-        '$2b$10$K7L1OJ45/4Y2nIvhRVpCe.FSmhDdWoXehVzJptJ/op0lSsvqNu/1u',
+        '$2a$10$fsojgJvdhOhr0WGZ4.bRiufmI7DI5UskFOcFRc1.9KRKxF74CEsR6',
     },
   });
   await Promise.all(
