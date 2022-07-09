@@ -7,6 +7,7 @@ import {
   useCatch,
   Scripts,
   ScrollRestoration,
+  Meta,
 } from '@remix-run/react';
 
 import globalStylesUrl from './styles/global.css';
@@ -32,6 +33,22 @@ export const links: LinksFunction = () => {
   ];
 };
 
+export const meta: MetaFunction = () => {
+  const description = `Learn Remix and laugh at the same time!`;
+  return {
+    charset: 'utf-8',
+    description,
+    viewport: 'width=device-width, initial-scale=1.0',
+    keywords: 'Remix,jokes',
+    'twitter:image': 'https://remix-jokes.lol/social.png',
+    'twitter:card': 'summary_large_image',
+    'twitter:creator': '@remix_run',
+    'twitter:site': '@remix_run',
+    'twitter:title': 'Remix Jokes',
+    'twitter:description': description,
+  };
+};
+
 function Document({
   children,
   title = `Remix Jokes`,
@@ -42,8 +59,7 @@ function Document({
   return (
     <html lang='en'>
       <head>
-        <meta charSet='utf-8' />
-        <meta name='viewport' content='width=device-width, initial-scale=1.0' />
+        <Meta />
         <title>{title}</title>
         <Links />
       </head>

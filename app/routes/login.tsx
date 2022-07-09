@@ -1,4 +1,4 @@
-import { json } from '@remix-run/node';
+import { json, MetaFunction } from '@remix-run/node';
 import type { ActionFunction, LinksFunction } from '@remix-run/node';
 import { useActionData, Link, useSearchParams } from '@remix-run/react';
 
@@ -11,6 +11,12 @@ export const links: LinksFunction = () => {
   return [{ rel: 'stylesheet', href: stylesUrl }];
 };
 
+export const meta: MetaFunction = () => {
+  return {
+    title: 'Remix Jokes | Login',
+    description: 'Login to submit your own jokes to Remix Jokes!',
+  };
+};
 
 function validateUsername(username: unknown) {
   if (typeof username !== 'string' || username.length < 3) {
@@ -49,7 +55,6 @@ type ActionData = {
 const badRequest = (data: ActionData) => json(data, { status: 400 });
 
 export const action: ActionFunction = async ({ request }) => {
-  
   const form = await request.formData();
 
   const loginType = form.get('loginType');
