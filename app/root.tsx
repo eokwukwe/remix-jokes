@@ -65,6 +65,7 @@ function Document({
       </head>
       <body>
         {children}
+        <Scripts />
         <LiveReload />
       </body>
     </html>
@@ -76,7 +77,6 @@ export default function App() {
     <Document>
       <Outlet />
       {/* <ScrollRestoration /> */}
-      {/* <Scripts /> */}
     </Document>
   );
 }
@@ -96,6 +96,7 @@ export function CatchBoundary() {
 }
 
 export function ErrorBoundary({ error }: { error: Error }) {
+  console.error(error); // Log server error in the browser console
   return (
     <Document title='Uh-oh!'>
       <div className='error-container'>
